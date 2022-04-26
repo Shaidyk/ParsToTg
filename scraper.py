@@ -34,38 +34,6 @@ class ParserTesmania:  # noqa
         self.soup = BeautifulSoup(self.response, 'lxml')
         return self.soup
 
-    def get_spacex_all(self):
-        block = self.soup.find('div', id=self.div_id_spacex)
-        articles = block.find_all('h3', class_='sub_title')
-
-        for article in articles:
-            article_title = article.find('a').text
-            article_url = 'https://www.tesmanian.com/' + article.find('a').get('href')
-            article_id = article_url.split('/')[-1]
-            self.spacex_dict[article_id] = {
-                'article_title': article_title,
-                'article_url': article_url
-            }
-
-        with open('spacex_article.json', 'w') as file:
-            json.dump(self.spacex_dict, file, indent=4, ensure_ascii=False)
-
-    def get_tesla_all(self):
-        block = self.soup.find('div', id=self.div_id_tesla)
-        articles = block.find_all('h3', class_='sub_title')
-
-        for article in articles:
-            article_title = article.find('a').text
-            article_url = 'https://www.tesmanian.com/' + article.find('a').get('href')
-            article_id = article_url.split('/')[-1]
-            self.tesla_dict[article_id] = {
-                'article_title': article_title,
-                'article_url': article_url
-            }
-
-        with open('tesla_article.json', 'w') as file:
-            json.dump(self.tesla_dict, file, indent=4, ensure_ascii=False)
-
     def get_spacex(self):
         try:
             with open('spacex_article.json') as file:
@@ -135,5 +103,3 @@ class ParserTesmania:  # noqa
             json.dump(self.tesla_dict, file, indent=4, ensure_ascii=False)
 
         return new_articles
-
-
