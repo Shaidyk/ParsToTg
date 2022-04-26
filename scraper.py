@@ -67,8 +67,12 @@ class ParserTesmania:  # noqa
             json.dump(self.tesla_dict, file, indent=4, ensure_ascii=False)
 
     def get_spacex(self):
-        with open('spacex_article.json') as file:
-            self.spacex_dict = json.load(file)
+        try:
+            with open('spacex_article.json') as file:
+                self.spacex_dict = json.load(file)
+        except FileNotFoundError:
+            with open('spacex_article.json', 'w') as file:
+                json.dump(self.spacex_dict, file, indent=4, ensure_ascii=False)
 
         block = self.soup.find('div', id=self.div_id_spacex)
         articles = block.find_all('h3', class_='sub_title')
@@ -98,8 +102,12 @@ class ParserTesmania:  # noqa
         return new_articles
 
     def get_tesla(self):
-        with open('tesla_article.json') as file:
-            self.tesla_dict = json.load(file)
+        try:
+            with open('tesla_article.json') as file:
+                self.tesla_dict = json.load(file)
+        except FileNotFoundError:
+            with open('tesla_article.json', 'w') as file:
+                json.dump(self.tesla_dict, file, indent=4, ensure_ascii=False)
 
         block = self.soup.find('div', id=self.div_id_tesla)
         articles = block.find_all('h3', class_='sub_title')
@@ -127,3 +135,7 @@ class ParserTesmania:  # noqa
             json.dump(self.tesla_dict, file, indent=4, ensure_ascii=False)
 
         return new_articles
+
+
+t = ParserTesmania()
+t.get_tesla()
