@@ -137,5 +137,3 @@ class ParserTesmania:  # noqa
         return new_articles
 
 
-t = ParserTesmania()
-t.get_tesla()
